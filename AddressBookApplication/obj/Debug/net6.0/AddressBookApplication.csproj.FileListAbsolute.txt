@@ -95,7 +95,6 @@ C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.AssemblyInfoInputs.cache
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.AssemblyInfo.cs
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.csproj.CoreCompileInputs.cache
-C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.MvcApplicationPartsAssemblyInfo.cs
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.MvcApplicationPartsAssemblyInfo.cache
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.sourcelink.json
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\scopedcss\bundle\AddressBookApplication.styles.css
@@ -120,3 +119,15 @@ C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\FluentValidation.dll
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.Bcl.Memory.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.Bcl.TimeProvider.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\AddressBookApplication\obj\Debug\net6.0\AddressBookApplication.MvcApplicationPartsAssemblyInfo.cs

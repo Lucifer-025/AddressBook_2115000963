@@ -3,7 +3,7 @@ using ModelLayer.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Interfaces
+namespace BusinessLayer.Interface
 {
     public interface IAddressBookBL
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessLayer.Interfaces;
+using BusinessLayer.Interface;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using System;

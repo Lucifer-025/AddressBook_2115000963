@@ -1,6 +1,5 @@
-using BusinessLayer.Interfaces;
+using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
-
 using ModelLayer.Model;
 using NLog;
 using System;
