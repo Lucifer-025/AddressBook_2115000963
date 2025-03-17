@@ -9,3 +9,15 @@ C:\Important\Project\AddressBookApplication\ModelLayer\obj\Debug\net6.0\ModelLay
 C:\Important\Project\AddressBookApplication\ModelLayer\obj\Debug\net6.0\refint\ModelLayer.dll
 C:\Important\Project\AddressBookApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.pdb
 C:\Important\Project\AddressBookApplication\ModelLayer\obj\Debug\net6.0\ref\ModelLayer.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\bin\Debug\net6.0\ModelLayer.deps.json
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\bin\Debug\net6.0\ModelLayer.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\bin\Debug\net6.0\ModelLayer.pdb
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfoInputs.cache
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfo.cs
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.csproj.CoreCompileInputs.cache
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.sourcelink.json
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\refint\ModelLayer.dll
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ModelLayer.pdb
+C:\Important\CloneAddressBook\AddressBook_2115000963\ModelLayer\obj\Debug\net6.0\ref\ModelLayer.dll
