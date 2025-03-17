@@ -1,155 +1,167 @@
+using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 using ModelLayer.Model;
 using NLog;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AddressBookApplicationController : ControllerBase
+public class AddressBookController : ControllerBase
 {
     private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-    private static List<AddressEntry> _addressBookEntries = new List<AddressEntry>();
-    private static int _idCounter = 1;
+    private readonly IAddressBookBL _addressBookBL;
 
-    public AddressBookApplicationController()
+    public AddressBookController(IAddressBookBL addressBookBL)
     {
-        _logger.Info("Logger has been integrated");
+        _addressBookBL = addressBookBL;
     }
-    /// <summary>
-    /// Get contacts 
-    /// </summary>
-    /// <returns></returns>
-    // GET: api/addressbook
+
     [HttpGet]
-    public IActionResult GetAllContacts()
+    public async Task<IActionResult> GetAllContacts()
     {
-        ResponseModel<IEnumerable<AddressEntry>> responseModel = new ResponseModel<IEnumerable<AddressEntry>>();
-
-        responseModel.Success = true;
-        responseModel.Message = "Contacts fetched successfully.";
-        responseModel.Data = _addressBookEntries;
-
-        _logger.Info("Fetched all contacts successfully.");
-        return Ok(responseModel);
+        try
+        {
+            var contacts = await _addressBookBL.GetAllContactsAsync();
+            return Ok(new ResponseModel<IEnumerable<AddressEntry>>
+            {
+                Success = true,
+                Message = "Contacts fetched successfully.",
+                Data = contacts
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error fetching contacts");
+            return StatusCode(500, new ResponseModel<string>
+            {
+                Success = false,
+                Message = "An error occurred while fetching contacts."
+            });
+        }
     }
-    /// <summary>
-    /// Get contacts by id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    // GET: api/addressbook/{id}
+
     [HttpGet("{id}")]
-    public IActionResult GetContactById(int id)
+    public async Task<IActionResult> GetContactById(int id)
     {
-        ResponseModel<AddressEntry> responseModel = new ResponseModel<AddressEntry>();
-
-        var contact = _addressBookEntries.FirstOrDefault(e => e.Id == id);
-
-        if (contact == null)
+        try
         {
-            _logger.Warn($"Contact with ID {id} not found.");
-            responseModel.Success = false;
-            responseModel.Message = "Contact not found.";
-            return NotFound(responseModel);
+            var contact = await _addressBookBL.GetContactByIdAsync(id);
+            if (contact == null)
+            {
+                return NotFound(new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = "Contact not found."
+                });
+            }
+
+            return Ok(new ResponseModel<AddressEntry>
+            {
+                Success = true,
+                Message = "Contact fetched successfully.",
+                Data = contact
+            });
         }
-
-        responseModel.Success = true;
-        responseModel.Message = "Contact fetched successfully.";
-        responseModel.Data = contact;
-
-        _logger.Info($"Fetched contact with ID {id} successfully.");
-        return Ok(responseModel);
+        catch (Exception ex)
+        {
+            _logger.Error(ex, $"Error fetching contact with ID: {id}");
+            return StatusCode(500, new ResponseModel<string>
+            {
+                Success = false,
+                Message = "An error occurred while fetching the contact."
+            });
+        }
     }
-    /// <summary>
-    /// Add Contacts
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    // POST: api/addressbook
+
     [HttpPost]
-    public IActionResult AddContact([FromBody] RequestModel request)
+    public async Task<IActionResult> AddContact([FromBody] RequestModel request)
     {
-        ResponseModel<AddressEntry> responseModel = new ResponseModel<AddressEntry>();
-
-        var newContact = new AddressEntry
+        try
         {
-            Id = _idCounter++,
-            Name = request.Name,
-            PhoneNumber = request.PhoneNumber,
-            Email = request.Email,
-            Address = request.Address
-        };
-
-        _addressBookEntries.Add(newContact);
-
-        responseModel.Success = true;
-        responseModel.Message = "Contact added successfully.";
-        responseModel.Data = newContact;
-
-        _logger.Info($"Added new contact with name {newContact.Name}.");
-        return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, responseModel);
+            var newContact = await _addressBookBL.AddContactAsync(request);
+            return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, new ResponseModel<AddressEntry>
+            {
+                Success = true,
+                Message = "Contact added successfully.",
+                Data = newContact
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error adding contact");
+            return StatusCode(500, new ResponseModel<string>
+            {
+                Success = false,
+                Message = "An error occurred while adding the contact."
+            });
+        }
     }
-    /// <summary>
-    /// Edit by Id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    // PUT: api/addressbook/{id}
+
     [HttpPut("{id}")]
-    public IActionResult UpdateContact(int id, [FromBody] RequestModel request)
+    public async Task<IActionResult> UpdateContact(int id, [FromBody] RequestModel request)
     {
-        ResponseModel<AddressEntry> responseModel = new ResponseModel<AddressEntry>();
-
-        var existingContact = _addressBookEntries.FirstOrDefault(e => e.Id == id);
-
-        if (existingContact == null)
+        try
         {
-            _logger.Warn($"Contact with ID {id} not found for update.");
-            responseModel.Success = false;
-            responseModel.Message = "Contact not found.";
-            return NotFound(responseModel);
+            var updatedContact = await _addressBookBL.UpdateContactAsync(id, request);
+            if (updatedContact == null)
+            {
+                return NotFound(new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = "Contact not found."
+                });
+            }
+
+            return Ok(new ResponseModel<AddressEntry>
+            {
+                Success = true,
+                Message = "Contact updated successfully.",
+                Data = updatedContact
+            });
         }
-
-        existingContact.Name = request.Name;
-        existingContact.PhoneNumber = request.PhoneNumber;
-        existingContact.Email = request.Email;
-        existingContact.Address = request.Address;
-
-        responseModel.Success = true;
-        responseModel.Message = "Contact updated successfully.";
-        responseModel.Data = existingContact;
-
-        _logger.Info($"Updated contact with ID {id} successfully.");
-        return Ok(responseModel);
+        catch (Exception ex)
+        {
+            _logger.Error(ex, $"Error updating contact with ID: {id}");
+            return StatusCode(500, new ResponseModel<string>
+            {
+                Success = false,
+                Message = "An error occurred while updating the contact."
+            });
+        }
     }
-    /// <summary>
-    /// Delete by Id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    // DELETE: api/addressbook/{id}
+
     [HttpDelete("{id}")]
-    public IActionResult DeleteContact(int id)
+    public async Task<IActionResult> DeleteContact(int id)
     {
-        ResponseModel<string> responseModel = new ResponseModel<string>();
-
-        var contactToDelete = _addressBookEntries.FirstOrDefault(e => e.Id == id);
-
-        if (contactToDelete == null)
+        try
         {
-            _logger.Warn($"Contact with ID {id} not found for deletion.");
-            responseModel.Success = false;
-            responseModel.Message = "Contact not found.";
-            return NotFound(responseModel);
+            var deleted = await _addressBookBL.DeleteContactAsync(id);
+            if (!deleted)
+            {
+                return NotFound(new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = "Contact not found."
+                });
+            }
+
+            return Ok(new ResponseModel<string>
+            {
+                Success = true,
+                Message = "Contact deleted successfully."
+            });
         }
-
-        _addressBookEntries.Remove(contactToDelete);
-
-        responseModel.Success = true;
-        responseModel.Message = "Contact deleted successfully.";
-
-        _logger.Info($"Deleted contact with ID {id} successfully.");
-        return NoContent();
+        catch (Exception ex)
+        {
+            _logger.Error(ex, $"Error deleting contact with ID: {id}");
+            return StatusCode(500, new ResponseModel<string>
+            {
+                Success = false,
+                Message = "An error occurred while deleting the contact."
+            });
+        }
     }
 }

@@ -550,7 +550,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "ModelLayer": "1.0.0",
+          "NLog": "5.4.0",
           "RepositoryLayer": "1.0.0"
         },
         "compile": {
@@ -574,9 +576,11 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "Microsoft.EntityFrameworkCore": "6.0.36",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.36",
           "ModelLayer": "1.0.0",
+          "NLog": "5.4.0",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.3"
         },
         "compile": {

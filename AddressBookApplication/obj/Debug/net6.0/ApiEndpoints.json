@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "AddressBookApplicationController",
+    "ContainingType": "AddressBookController",
     "Method": "GetAllContacts",
-    "RelativePath": "api/AddressBookApplication",
+    "RelativePath": "api/AddressBook",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -10,9 +10,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookApplicationController",
+    "ContainingType": "AddressBookController",
     "Method": "AddContact",
-    "RelativePath": "api/AddressBookApplication",
+    "RelativePath": "api/AddressBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -26,9 +26,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookApplicationController",
+    "ContainingType": "AddressBookController",
     "Method": "GetContactById",
-    "RelativePath": "api/AddressBookApplication/{id}",
+    "RelativePath": "api/AddressBook/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -42,9 +42,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookApplicationController",
+    "ContainingType": "AddressBookController",
     "Method": "UpdateContact",
-    "RelativePath": "api/AddressBookApplication/{id}",
+    "RelativePath": "api/AddressBook/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -63,9 +63,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookApplicationController",
+    "ContainingType": "AddressBookController",
     "Method": "DeleteContact",
-    "RelativePath": "api/AddressBookApplication/{id}",
+    "RelativePath": "api/AddressBook/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

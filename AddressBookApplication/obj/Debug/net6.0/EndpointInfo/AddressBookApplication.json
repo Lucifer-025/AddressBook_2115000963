@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/AddressBookApplication": {
+    "/api/AddressBook": {
       "get": {
         "tags": [
-          "AddressBookApplication"
+          "AddressBook"
         ],
         "responses": {
           "200": {
@@ -18,7 +18,7 @@
       },
       "post": {
         "tags": [
-          "AddressBookApplication"
+          "AddressBook"
         ],
         "requestBody": {
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/api/AddressBookApplication/{id}": {
+    "/api/AddressBook/{id}": {
       "get": {
         "tags": [
-          "AddressBookApplication"
+          "AddressBook"
         ],
         "parameters": [
           {
@@ -70,7 +70,7 @@
       },
       "put": {
         "tags": [
-          "AddressBookApplication"
+          "AddressBook"
         ],
         "parameters": [
           {
@@ -110,7 +110,7 @@
       },
       "delete": {
         "tags": [
-          "AddressBookApplication"
+          "AddressBook"
         ],
         "parameters": [
           {
