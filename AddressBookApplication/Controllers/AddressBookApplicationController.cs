@@ -150,7 +150,7 @@ public class AddressBookController : ControllerBase
             return Ok(new ResponseModel<string>
             {
                 Success = true,
-                Message = "Contact deleted successfully."
+                Message = "Deletion was successful."
             });
         }
         catch (Exception ex)

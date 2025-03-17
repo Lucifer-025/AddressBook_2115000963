@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Middleware.Authenticator;
 using System.Text;
 using Microsoft.Extensions.Options;
+using Middleware.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +30,13 @@ options.UseMySql(builder.Configuration.GetConnectionString("MySqlDatabase"), new
 builder.Services.AddAutoMapper(typeof(MappingProfileBL));
 builder.Services.AddAutoMapper(typeof(UserMapper));
 
+
+builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
+builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserRL, UserRL>();
 builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddScoped<EmailService>();
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -60,9 +65,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
-builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
-builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
 
 // Add services to the container.
 builder.Services.AddControllers();
