@@ -1,96 +1,132 @@
-﻿using BusinessLayer.Interface;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using BusinessLayer.Helper;
+using BusinessLayer.Interface;
+using BusinessLayer.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelLayer.DTO;
 using ModelLayer.Model;
 
-namespace AddressBook.Controllers
+namespace AddressBookApplication.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
-        private readonly IUserBL _userService;
+        private readonly IUserBL _userBL;
+        private readonly JwtHelper _jwtHelper;
+        private readonly EmailService _emailService;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IUserBL userService)
+
+
+        public AuthController(IUserBL userBL, EmailService emailService, JwtHelper jwtHelper, ILogger<AuthController> logger)
         {
-            _userService = userService;
+            _userBL = userBL;
+            _emailService = emailService;
+            _jwtHelper = jwtHelper;
+            _logger = logger;
         }
 
+        // User Registration
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterUser request)
+        public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
-            bool isRegistered = _userService.RegisterUser(request);
-            if (!isRegistered)
-                return BadRequest(new ResponseModel<string> { Success = false, Message = "User with this email already exists." });
+            if (!ModelState.IsValid)
+                return BadRequest(new { Success = false, Message = "Invalid input data" });
 
-            return Ok(new ResponseModel<string> { Success = true, Message = "User registered successfully." });
+            var response = await _userBL.RegisterUserAsync(userDto);
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
+        // User Login
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLogin request)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var token = _userService.LoginUser(request);
-            if (token == null)
-                return Unauthorized(new ResponseModel<string> { Success = false, Message = "Invalid email or password." });
+            if (!ModelState.IsValid)
+                return BadRequest(new { Success = false, Message = "Invalid input data" });
 
-            return Ok(new ResponseModel<string> { Success = true, Message = "Login successful.", Data = token });
+            var response = await _userBL.LoginUserAsync(loginDto);
+            if (!response.Success)
+                return Unauthorized(response);
+
+            return Ok(response);
         }
 
+        // Forgot Password - Generate Reset Token
         [HttpPost("forgot-password")]
-        public IActionResult ForgotPassword([FromBody] ForgotPasswordDTO request)
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto request)
         {
-            bool isSent = _userService.ForgotPassword(request.Email);
-            if (!isSent)
-                return BadRequest(new ResponseModel<string> { Success = false, Message = "Email not found." });
+            try
+            {
+                if (request == null || string.IsNullOrEmpty(request.Email))
+                    return BadRequest(new ApiResponse<string>(false, "Invalid request: Email is required.", null));
 
-            return Ok(new ResponseModel<string> { Success = true, Message = "Reset password email sent successfully." });
+                if (_emailService == null)
+                    return StatusCode(500, new ApiResponse<string>(false, "Email service not available.", null));
+
+                if (_jwtHelper == null)
+                    return StatusCode(500, new ApiResponse<string>(false, "JWT service not available.", null));
+
+                var user = await _userBL.GetByEmailAsync(request.Email);
+                if (user == null)
+                    return NotFound(new ApiResponse<string>(false, "User not found.", null));
+
+                // Generate Reset Token
+                string resetToken = _jwtHelper.GeneratePasswordResetToken(request.Email);
+                string resetLink = $"https://yourfrontend.com/reset-password?token={resetToken}";
+
+                _logger.LogInformation($"🔹 Reset link generated: {resetLink}");
+
+                // Send Email
+                string emailBody = $"Click <a href='{resetLink}'>here</a> to reset your password.";
+                bool emailSent = await _emailService.SendEmailAsync(request.Email, "Password Reset", emailBody);
+
+                if (!emailSent)
+                {
+                    _logger.LogError("❌ Failed to send email.");
+                    return StatusCode(500, new ApiResponse<string>(false, "Failed to send reset email.", null));
+                }
+
+                return Ok(new ApiResponse<string>(true, "Password reset email sent successfully.", null));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"❌ Exception in ForgotPassword: {ex.Message}");
+                return StatusCode(500, new ApiResponse<string>(false, $"Internal Server Error: {ex.Message}", null));
+            }
         }
 
-        [HttpGet("reset-password")]
-        public ContentResult ResetPasswordForm([FromQuery] string token)
-        {
-            if (string.IsNullOrEmpty(token))
-                return new ContentResult { Content = "Token is required.", ContentType = "text/plain" };
-
-            string htmlForm = $@"
-                <html>
-                <body>
-                     <form action='/api/Auth/reset-password-form' method='post'>
-                        <input type='hidden' name='token' value='{token}' />
-                        <label>New Password:</label>
-                        <input type='password' name='newPassword' required />
-                        <button type='submit'>Reset Password</button>
-                    </form>
-                </body>
-                 </html>";
-
-            return new ContentResult { Content = htmlForm, ContentType = "text/html" };
-        }
-
+        // Reset Password - Validate Token & Change Password
         [HttpPost("reset-password")]
-        public IActionResult ResetPassword([FromBody] ResetPasswordDTO request)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
         {
-            if (request == null || string.IsNullOrEmpty(request.Token) || string.IsNullOrEmpty(request.NewPassword))
-                return BadRequest(new ResponseModel<string> { Success = false, Message = "Token and new password are required." });
+            if (request.NewPassword != request.ConfirmPassword)
+                return BadRequest(new ApiResponse<string>(false, "Passwords do not match", null));
 
-            bool isResetSuccessful = _userService.ResetPassword(request.Token, request.NewPassword);
-            if (!isResetSuccessful)
-                return Unauthorized(new ResponseModel<string> { Success = false, Message = "Invalid or expired token." });
+            var principal = _jwtHelper.ValidateToken(request.Token);
+            if (principal == null)
+                return BadRequest(new ApiResponse<string>(false, "Invalid or expired token", null));
 
-            return Ok(new ResponseModel<string> { Success = true, Message = "Password reset successfully." });
-        }
+            //var emailClaim = principal.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            var emailClaim = principal.FindFirst(ClaimTypes.Email)?.Value
+         ?? principal.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
+            if (string.IsNullOrEmpty(emailClaim))
+                return BadRequest(new ApiResponse<string>(false, "Invalid token", null));
 
-        [HttpPost("reset-password-form")]
-        public IActionResult ResetPasswordForm([FromForm] string token, [FromForm] string newPassword)
-        {
-            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(newPassword))
-                return BadRequest(new ResponseModel<string> { Success = false, Message = "Token and new password are required." });
+            var user = await _userBL.GetByEmailAsync(emailClaim);
+            if (user == null)
+                return NotFound(new ApiResponse<string>(false, "User not found", null));
 
-            bool isResetSuccessful = _userService.ResetPassword(token, newPassword);
-            if (!isResetSuccessful)
-                return Unauthorized(new ResponseModel<string> { Success = false, Message = "Invalid or expired token." });
+            // Reset password securely
+            string hashedPassword = PasswordHasher.HashPassword(request.NewPassword);
+            await _userBL.UpdatePasswordAsync(user.Id, hashedPassword);
 
-            return Ok(new ResponseModel<string> { Success = true, Message = "Password reset successfully." });
+            return Ok(new ApiResponse<string>(true, "Password reset successfully", null));
         }
     }
 }

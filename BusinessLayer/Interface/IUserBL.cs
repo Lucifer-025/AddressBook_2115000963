@@ -1,18 +1,18 @@
-﻿using ModelLayer.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ModelLayer.DTO;
+using ModelLayer.Model;
 
 namespace BusinessLayer.Interface
 {
     public interface IUserBL
     {
-        bool RegisterUser(RegisterUser request);
-        string? LoginUser(UserLogin request);
-        bool ForgotPassword(string email);
-        bool ResetPassword(string token, string newPassword);
+        Task<ApiResponse<string>> RegisterUserAsync(UserDto userDto);
+        Task<ApiResponse<string>> LoginUserAsync(LoginDto loginDto);
+        Task<User?> GetByEmailAsync(string email);
+        Task UpdatePasswordAsync(int userId, string newPassword);
     }
 }

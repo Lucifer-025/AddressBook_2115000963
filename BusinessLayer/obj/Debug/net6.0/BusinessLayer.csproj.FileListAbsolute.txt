@@ -1,20 +1,50 @@
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.deps.json
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.dll
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.pdb
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\ModelLayer.dll
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.dll
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\ModelLayer.pdb
-C:\Important\Project\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.pdb
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.AssemblyReference.cache
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfoInputs.cache
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfo.cs
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.CoreCompileInputs.cache
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\Business.EA331CBA.Up2Date
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.dll
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\refint\BusinessLayer.dll
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.pdb
-C:\Important\Project\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\ref\BusinessLayer.dll
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.deps.json
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.dll
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.pdb
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.AssemblyReference.cache
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfoInputs.cache
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfo.cs
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\Business.EA331CBA.Up2Date
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.dll
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\refint\BusinessLayer.dll
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.pdb
+D:\Dotnet Framework\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\ref\BusinessLayer.dll
+D:\testing\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.deps.json
+D:\testing\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.dll
+D:\testing\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.pdb
+D:\testing\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\testing\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.AssemblyReference.cache
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfoInputs.cache
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfo.cs
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\Business.EA331CBA.Up2Date
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.dll
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\refint\BusinessLayer.dll
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.pdb
+D:\testing\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\ref\BusinessLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.deps.json
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\BusinessLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\ModelLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\ModelLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.AssemblyReference.cache
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfoInputs.cache
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.AssemblyInfo.cs
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\Business.EA331CBA.Up2Date
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\refint\BusinessLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\BusinessLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\BusinessLayer\obj\Debug\net6.0\ref\BusinessLayer.dll
 C:\Important\CloneAddressBook\AddressBook_2115000963\BusinessLayer\bin\Debug\net6.0\BusinessLayer.deps.json
 C:\Important\CloneAddressBook\AddressBook_2115000963\BusinessLayer\bin\Debug\net6.0\BusinessLayer.dll
 C:\Important\CloneAddressBook\AddressBook_2115000963\BusinessLayer\bin\Debug\net6.0\BusinessLayer.pdb

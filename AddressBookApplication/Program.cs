@@ -1,104 +1,135 @@
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using NLog.Config;
-using NLog.Web;
-using BusinessLayer.Mapping; 
-using NLog;
-using RepositoryLayer.Context;
-using System;
+﻿using System.Text;
+using BusinessLayer.Helper;
 using BusinessLayer.Interface;
-using BusinessLayer.Services;
-using RepositoryLayer.Interface;
-using RepositoryLayer.Service;
 using BusinessLayer.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Middleware.Authenticator;
-using System.Text;
-using Microsoft.Extensions.Options;
-using Middleware.Email;
+using RepositoryLayer.Context;
+using RepositoryLayer.Interface;
+using RepositoryLayer.Service;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database Connection
-builder.Services.AddDbContext<AddressContext>(options =>
-options.UseMySql(builder.Configuration.GetConnectionString("MySqlDatabase"), new MySqlServerVersion(new Version(8, 0, 41))));
+// Load Redis Settings
+var redisSettings = builder.Configuration.GetSection("RedisCacheSettings");
+bool isRedisEnabled = redisSettings.GetValue<bool>("Enabled");
+string redisConnection = redisSettings.GetValue<string>("ConnectionString");
 
-//auto mapper
-builder.Services.AddAutoMapper(typeof(MappingProfileBL));
-builder.Services.AddAutoMapper(typeof(UserMapper));
+// Add services to the container.
 
-
+builder.Services.AddControllers();
 builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
 builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserRL, UserRL>();
-builder.Services.AddScoped<JwtTokenService>();
-builder.Services.AddScoped<EmailService>();
 
-// Configure JWT Authentication
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-var jwtKey = jwtSettings["Key"];
-
-if (string.IsNullOrEmpty(jwtKey))
+// Add Redis Cache
+if (isRedisEnabled)
 {
-    throw new Exception("JWT Key is missing in configuration");
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = redisConnection;
+        options.InstanceName = "AddressBookCache";
+    });
+
+    builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();
 }
 
-var key = Encoding.UTF8.GetBytes(jwtKey);
+if (isRedisEnabled)
+{
+    builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
+
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = redisConnection;
+        options.InstanceName = "AddressBookCache";
+    });
+
+    builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();
+}
+
+
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("MySqlDatabase"), new MySqlServerVersion(new Version(8, 0, 41))));
+
+// Register Helper Classes
+builder.Services.AddSingleton<JwtHelper>();
+builder.Services.AddSingleton<PasswordHasher>();
+builder.Services.AddSingleton<EmailService>();
+
+// Configure JWT Authentication
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
             ValidateIssuer = true,
             ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]))
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"❌ Authentication failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            },
+            OnMessageReceived = context =>
+            {
+                var token = context.Request.Headers["Authorization"].ToString();
+                Console.WriteLine($"🔹 Received Token: {token}");
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    Console.WriteLine("❌ Token is missing in the request.");
+                }
+
+                return Task.CompletedTask;
+            },
+            OnChallenge = async context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+
+                Console.WriteLine("❌ JWT Challenge: Unauthorized - Token missing or invalid.");
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    success = false,
+                    message = "Unauthorized: Invalid or missing token",
+                    data = (string)null
+                });
+            }
         };
     });
 
 
-// Add services to the container.
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Add AutoMapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-// Add FluentValidation
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<AddressBookValidator>(); // Ensure Validator is correctly registered
-
-//logger using nlog
-var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-LogManager.Configuration = new XmlLoggingConfiguration("C:\\Important\\CloneAddressBook\\AddressBook_2115000963\\AddressBookApplication\\Nlog.Config");
-logger.Debug("init main");
-
-builder.Logging.ClearProviders();
-builder.Host.UseNLog();
-
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
+app.Run();

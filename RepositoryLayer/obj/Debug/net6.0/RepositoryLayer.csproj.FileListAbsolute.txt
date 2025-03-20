@@ -1,20 +1,48 @@
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.runtimeconfig.json
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.pdb
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\ModelLayer.dll
-C:\Important\Project\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\ModelLayer.pdb
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.AssemblyReference.cache
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfoInputs.cache
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfo.cs
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.CoreCompileInputs.cache
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\Reposito.A0A61804.Up2Date
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.dll
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\refint\RepositoryLayer.dll
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.genruntimeconfig.cache
-C:\Important\Project\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.runtimeconfig.json
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.AssemblyReference.cache
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfoInputs.cache
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfo.cs
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.CoreCompileInputs.cache
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.dll
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\refint\RepositoryLayer.dll
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.genruntimeconfig.cache
+D:\Dotnet Framework\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
+D:\testing\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
+D:\testing\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.runtimeconfig.json
+D:\testing\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\testing\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.AssemblyReference.cache
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfoInputs.cache
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfo.cs
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.CoreCompileInputs.cache
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.dll
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\refint\RepositoryLayer.dll
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.genruntimeconfig.cache
+D:\testing\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.runtimeconfig.json
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\ModelLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\bin\Debug\net6.0\ModelLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.AssemblyReference.cache
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfoInputs.cache
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfo.cs
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.CoreCompileInputs.cache
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\Reposito.A0A61804.Up2Date
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\refint\RepositoryLayer.dll
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.genruntimeconfig.cache
+D:\testing\addressbooknew\AddressBookApplication\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
 C:\Important\CloneAddressBook\AddressBook_2115000963\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
 C:\Important\CloneAddressBook\AddressBook_2115000963\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.runtimeconfig.json
 C:\Important\CloneAddressBook\AddressBook_2115000963\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll

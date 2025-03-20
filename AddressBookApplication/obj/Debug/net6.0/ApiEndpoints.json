@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "AddressBookController",
+    "ContainingType": "AddressBookApplication.Controllers.AddressBookController",
     "Method": "GetAllContacts",
-    "RelativePath": "api/AddressBook",
+    "RelativePath": "api/addressbook",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -10,25 +10,25 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookController",
+    "ContainingType": "AddressBookApplication.Controllers.AddressBookController",
     "Method": "AddContact",
-    "RelativePath": "api/AddressBook",
+    "RelativePath": "api/addressbook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "ModelLayer.Model.RequestModel",
+        "Name": "dto",
+        "Type": "ModelLayer.DTO.AddressBookDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookController",
+    "ContainingType": "AddressBookApplication.Controllers.AddressBookController",
     "Method": "GetContactById",
-    "RelativePath": "api/AddressBook/{id}",
+    "RelativePath": "api/addressbook/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -42,9 +42,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookController",
+    "ContainingType": "AddressBookApplication.Controllers.AddressBookController",
     "Method": "UpdateContact",
-    "RelativePath": "api/AddressBook/{id}",
+    "RelativePath": "api/addressbook/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -55,17 +55,17 @@
         "IsRequired": true
       },
       {
-        "Name": "request",
-        "Type": "ModelLayer.Model.RequestModel",
+        "Name": "dto",
+        "Type": "ModelLayer.DTO.AddressBookDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBookController",
+    "ContainingType": "AddressBookApplication.Controllers.AddressBookController",
     "Method": "DeleteContact",
-    "RelativePath": "api/AddressBook/{id}",
+    "RelativePath": "api/addressbook/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -79,102 +79,65 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBook.Controllers.AuthController",
+    "ContainingType": "AddressBookApplication.Controllers.AuthController",
     "Method": "ForgotPassword",
-    "RelativePath": "api/Auth/forgot-password",
+    "RelativePath": "api/auth/forgot-password",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ModelLayer.Model.ForgotPasswordDTO",
+        "Type": "ModelLayer.DTO.ForgotPasswordDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBook.Controllers.AuthController",
+    "ContainingType": "AddressBookApplication.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Auth/login",
+    "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "ModelLayer.Model.UserLogin",
+        "Name": "loginDto",
+        "Type": "ModelLayer.DTO.LoginDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBook.Controllers.AuthController",
+    "ContainingType": "AddressBookApplication.Controllers.AuthController",
     "Method": "Register",
-    "RelativePath": "api/Auth/register",
+    "RelativePath": "api/auth/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "ModelLayer.Model.RegisterUser",
+        "Name": "userDto",
+        "Type": "ModelLayer.DTO.UserDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AddressBook.Controllers.AuthController",
-    "Method": "ResetPasswordForm",
-    "RelativePath": "api/Auth/reset-password",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "AddressBook.Controllers.AuthController",
+    "ContainingType": "AddressBookApplication.Controllers.AuthController",
     "Method": "ResetPassword",
-    "RelativePath": "api/Auth/reset-password",
+    "RelativePath": "api/auth/reset-password",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ModelLayer.Model.ResetPasswordDTO",
+        "Type": "ModelLayer.DTO.ResetPasswordDto",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "AddressBook.Controllers.AuthController",
-    "Method": "ResetPasswordForm",
-    "RelativePath": "api/Auth/reset-password-form",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "newPassword",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

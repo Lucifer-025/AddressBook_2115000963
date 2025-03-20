@@ -1,127 +1,89 @@
-﻿using AutoMapper;
+﻿using BusinessLayer.Helper;
 using BusinessLayer.Interface;
-using Middleware.Authenticator;
-using Middleware.Email;
-using Middleware.Salting;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using ModelLayer.DTO;
 using ModelLayer.Model;
-using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-
 namespace BusinessLayer.Service
 {
     public class UserBL : IUserBL
     {
         private readonly IUserRL _userRepository;
-        private readonly JwtTokenService _jwtTokenService;
-        private readonly IMapper _mapper;
-        private readonly EmailService _emailService;
+        private readonly JwtHelper _jwtHelper;
+        private readonly IRedisCacheService _redisCache;
 
-        public UserBL(IUserRL userRepository, JwtTokenService jwtTokenService, IMapper mapper, EmailService emailService)
+        public UserBL(IUserRL userRepository, JwtHelper jwtHelper, IRedisCacheService redisCache)
         {
             _userRepository = userRepository;
-            _jwtTokenService = jwtTokenService;
-            _mapper = mapper;
-            _emailService = emailService;
+            _jwtHelper = jwtHelper;
+            _redisCache = redisCache;
         }
 
-        public bool RegisterUser(RegisterUser request)
+        public async Task<ApiResponse<string>> RegisterUserAsync(UserDto userDto)
         {
-            try
-            {
-                // Check if the user already exists
-                var existingUser = _userRepository.GetUserByEmail(request.Email);
-                if (existingUser != null)
-                    return false; // User already exists
+            if (await _userRepository.GetByEmailAsync(userDto.Email) != null)
+                return new ApiResponse<string>(false, "User already exists");
 
-                // Map DTO to Entity
-                var user = _mapper.Map<UserEntity>(request);
-                user.PasswordHash = PasswordHelper.HashPassword(request.Password);
+            string hashedPassword = PasswordHasher.HashPassword(userDto.Password);
 
-                _userRepository.AddUser(user);
-                return true;
-            }
-            catch (Exception ex)
+            var user = new User
             {
-                Console.WriteLine($"[RegisterUser] Error: {ex.Message}");
-                return false;
-            }
+                Name = userDto.Name,
+                Email = userDto.Email,
+                PasswordHash = hashedPassword
+            };
+
+            await _userRepository.AddUserAsync(user);
+            string token = _jwtHelper.GenerateToken(user.Email, user.Id);
+
+            await _redisCache.SetAsync($"user{user.Email}", user, TimeSpan.FromMinutes(10));
+
+            return new ApiResponse<string>(true, "User registered successfully", token);
         }
 
-        public string? LoginUser(UserLogin request)
+        public async Task<ApiResponse<string>> LoginUserAsync(LoginDto loginDto)
         {
-            try
-            {
-                var user = _userRepository.GetUserByEmail(request.Email);
-                if (user == null || !PasswordHelper.VerifyPassword(request.Password, user.PasswordHash))
-                    return null;
-                var userModel = _mapper.Map<UserModel>(user);
+            var cacheKey = $"user_{loginDto.Email}";
+            var user = await _redisCache.GetAsync<User>(cacheKey);
 
-                return _jwtTokenService.GenerateToken(userModel);
-            }
-            catch (Exception ex)
+            if (user == null)
             {
-                Console.WriteLine($"[LoginUser] Error: {ex.Message}");
-                return null;
+                user = await _userRepository.GetByEmailAsync(loginDto.Email);
+                if (user != null)
+                    await _redisCache.SetAsync(cacheKey, user, TimeSpan.FromMinutes(10));
             }
+
+            if (user == null || !PasswordHasher.VerifyPassword(loginDto.Password, user.PasswordHash))
+                return new ApiResponse<string>(false, "Invalid credentials");
+
+            string token = _jwtHelper.GenerateToken(user.Email, user.Id);
+            return new ApiResponse<string>(true, "Login successful", token);
         }
 
-        public bool ForgotPassword(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            var user = _userRepository.GetUserByEmail(email);
-            if (user == null) return false; // User not found
+            var cacheKey = $"user_{email}";
+            var user = await _redisCache.GetAsync<User>(cacheKey);
 
-            // Generate Reset Token
-            string resetToken = _jwtTokenService.GenerateResetToken(user.Email);
+            if (user == null)
+            {
+                user = await _userRepository.GetByEmailAsync(email);
+                if (user != null)
+                    await _redisCache.SetAsync(cacheKey, user, TimeSpan.FromMinutes(10));
+            }
 
-            // Encode the token to prevent URL issues
-            string encodedToken = HttpUtility.UrlEncode(resetToken);
-
-            // Construct Reset Link
-            string resetLink = $"https://localhost:7265/api/Auth/reset-password?token={resetToken}";
-            string subject = "Reset Your Password";
-            //string body = $"Click the link to reset your password: <a href='{resetLink}'>Reset Password</a>";
-            string body = $"Click the link to reset your password: {resetLink}";
-
-
-            _emailService.SendEmail(user.Email, subject, body);
-            return true;
+            return user;
         }
 
-        public bool ResetPassword(string token, string newPassword)
+        public async Task UpdatePasswordAsync(int userId, string newPassword)
         {
-            try
+            await _userRepository.UpdatePasswordAsync(userId, newPassword);
+
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user != null)
             {
-                if (string.IsNullOrEmpty(token))
-                    return false; // Invalid token
-
-                // Decode the token before validation
-                string decodedToken = HttpUtility.UrlDecode(token);
-
-                // Validate JWT token
-                var tokenData = _jwtTokenService.ValidateResetToken(decodedToken);
-                if (tokenData == null || !tokenData.ContainsKey(ClaimTypes.Email)) return false;
-
-                string email = tokenData[ClaimTypes.Email].ToString();
-                var user = _userRepository.GetUserByEmail(email);
-                if (user == null) return false;
-
-                // Hash new password and update user
-                user.PasswordHash = PasswordHelper.HashPassword(newPassword);
-                _userRepository.UpdateUser(user);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[ResetPassword] Error: {ex.Message}");
-                return false;
+                user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+                await _redisCache.SetAsync($"user{user.Email}", user, TimeSpan.FromMinutes(10));
             }
         }
     }

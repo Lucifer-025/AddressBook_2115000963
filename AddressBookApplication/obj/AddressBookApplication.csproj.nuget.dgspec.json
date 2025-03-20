@@ -35,9 +35,6 @@
             "projectReferences": {
               "C:\\Important\\CloneAddressBook\\AddressBook_2115000963\\BusinessLayer\\BusinessLayer.csproj": {
                 "projectPath": "C:\\Important\\CloneAddressBook\\AddressBook_2115000963\\BusinessLayer\\BusinessLayer.csproj"
-              },
-              "C:\\Important\\CloneAddressBook\\AddressBook_2115000963\\ModelLayer\\ModelLayer.csproj": {
-                "projectPath": "C:\\Important\\CloneAddressBook\\AddressBook_2115000963\\ModelLayer\\ModelLayer.csproj"
               }
             }
           }
@@ -58,19 +55,7 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
-            "FluentValidation.AspNetCore": {
-              "target": "Package",
-              "version": "[11.3.0, )"
-            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[6.0.36, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.36, )"
             },
@@ -80,19 +65,19 @@
               "target": "Package",
               "version": "[6.0.36, )"
             },
-            "NLog": {
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[5.4.0, )"
+              "version": "[6.0.36, )"
             },
-            "NLog.Web.AspNetCore": {
+            "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[5.4.0, )"
+              "version": "[6.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.31, )"
             },
             "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[7.3.1, )"
-            },
-            "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
               "version": "[7.3.1, )"
             }
@@ -174,17 +159,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[12.0.1, )"
+              "version": "[6.0.36, )"
             },
-            "NLog": {
+            "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[5.4.0, )"
+              "version": "[6.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.31, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[8.6.1, )"
+              "version": "[6.36.0, )"
             }
           },
           "imports": [
@@ -253,6 +242,20 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.36, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.31, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -324,10 +327,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.36, )"
@@ -338,23 +337,23 @@
               "target": "Package",
               "version": "[6.0.36, )"
             },
-            "Microsoft.EntityFrameworkCore.Relational": {
-              "target": "Package",
-              "version": "[6.0.36, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.36, )"
             },
-            "NLog": {
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[5.4.0, )"
+              "version": "[6.0.36, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[6.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.31, )"
             }
           },
           "imports": [

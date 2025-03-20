@@ -1,67 +1,49 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RepositoryLayer.Context;
-using RepositoryLayer.Entity;
-using RepositoryLayer.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using RepositoryLayer.Context;
+using RepositoryLayer.Interface;
+using ModelLayer.Model;
 
 namespace RepositoryLayer.Service
 {
     public class AddressBookRL : IAddressBookRL
+
     {
-        private readonly AddressContext _dbContext;
+        private readonly AppDbContext _context;
 
-        public AddressBookRL(AddressContext dbContext)
+        public AddressBookRL(AppDbContext context)
         {
-            _dbContext = dbContext;
+            _context = context;
         }
 
-        public IEnumerable<AddressEntity> GetAllContacts()
+        public async Task<IEnumerable<AddressBookEntry>> GetAllAsync() => await _context.AddressBookEntries.ToListAsync();
+
+        public async Task<AddressBookEntry?> GetByIdAsync(int id) => await _context.AddressBookEntries.FindAsync(id);
+
+        public async Task AddAsync(AddressBookEntry entry)
         {
-            return _dbContext.AddressBookEntries.ToList();
+            await _context.AddressBookEntries.AddAsync(entry);
+            await _context.SaveChangesAsync();
         }
 
-        public AddressEntity GetContactById(int id)
+        public async Task UpdateAsync(AddressBookEntry entry)
         {
-            return _dbContext.AddressBookEntries.Find(id);
+            _context.AddressBookEntries.Update(entry);
+            await _context.SaveChangesAsync();
         }
 
-        public AddressEntity AddContact(AddressEntity contact)
+        public async Task DeleteAsync(int id)
         {
-            _dbContext.AddressBookEntries.Add(contact);
-            _dbContext.SaveChanges();
-            return contact;
-        }
-
-        public AddressEntity UpdateContact(int id, AddressEntity contact)
-        {
-            var existingContact = _dbContext.AddressBookEntries.FirstOrDefault(c => c.Id == id);
-
-            if (existingContact == null)
+            var entry = await GetByIdAsync(id);
+            if (entry != null)
             {
-                return null;
+                _context.AddressBookEntries.Remove(entry);
+                await _context.SaveChangesAsync();
             }
-
-            // Update fields
-            existingContact.Name = contact.Name;
-            existingContact.PhoneNumber = contact.PhoneNumber;
-            existingContact.Email = contact.Email;
-            existingContact.Address = contact.Address;
-
-            _dbContext.AddressBookEntries.Update(existingContact);
-            _dbContext.SaveChanges();
-            return existingContact;
-        }
-
-        public bool DeleteContact(int id)
-        {
-            var entry = _dbContext.AddressBookEntries.Find(id);
-            if (entry == null) return false;
-
-            _dbContext.AddressBookEntries.Remove(entry);
-            _dbContext.SaveChanges();
-            return true;
         }
     }
 }

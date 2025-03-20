@@ -1,18 +1,9 @@
-﻿using RepositoryLayer.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ModelLayer.Model;
 
-namespace RepositoryLayer.Interface
+public interface IUserRL
 {
-    public interface IUserRL
-    {
-        public UserEntity? GetUserByEmail(string email);
-        public void AddUser(UserEntity user);
-
-        public void UpdateUser(UserEntity user);
-
-    }
+    Task<User?> GetByEmailAsync(string email);
+    Task AddUserAsync(User user);
+    Task UpdatePasswordAsync(int userId, string newPassword);
+    Task<User?> GetByIdAsync(int userId); 
 }
